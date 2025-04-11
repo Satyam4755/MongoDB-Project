@@ -1,0 +1,134 @@
+<%-include('../partials/head')%>
+<style>
+    .mainDabba{
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .cards-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        max-width: 18%;
+    }
+    .booking-cards-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 60%;
+    }
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0,0.1);
+        margin: 20px;
+        height: fit-content;
+        /* padding: 20px; */
+        /* text-align: center; */
+    }
+    .card:hover{
+        box-shadow: 0 4px 8px rgba(0, 0, 0,10);
+    }
+    .content{
+        margin: 10px;
+    }
+    .card img {
+        border-radius: 10px;
+        max-width: 100%;
+        height: fit-content;
+        
+    }
+    .card h3 {
+        margin: 10px 0;
+    }
+    .card p {
+        margin: 5px 0;
+    }
+</style>
+
+<header>
+    <nav style="display: flex; justify-content: space-between; background-color: #f50303; padding: 1rem;">
+        <a href="/" id="user" style="color: white; text-decoration: none; padding: 0 1rem;">HOME</a>
+        <a href="/user" id="user" style="color: white; text-decoration: none; padding: 0 1rem;">USER</a>
+        <a href="/user/favourite_list" id="home-details" style="color: white; text-decoration: none; padding: 0 1rem;">FAVOURITE-LIST</a>
+        <a href="/user/reserve" id="home-details" style="color: white; text-decoration: none; padding: 0 1rem;">RESERVE</a>
+    </nav>
+</header>
+    <h1>
+        Welcome User!
+    </h1>
+    <h2>
+        Here is your booking details:
+    </h2>
+    <div class="mainDabba">
+      <div class="cards-container">
+      
+        <div class="card">
+            <a id="link" href="/user/home-list/<%=home._id %>" style="text-decoration: none; color: black;">
+                <img src="<%= home.imageURL %>" alt="Home Image">
+            
+            <div class="content">
+                <h3><%= home.name %></h3>
+            <p><strong>Type:</strong> <%= home.type %></p>
+            <p><strong>Price per night:</strong> ₹<%= home.price %></p>
+            <p><strong>Location:</strong> <%= home.location %></p>
+            <p><strong>Ratings:</strong> <% for(let i=1;i<=home.rating;i++){%>
+                ⭐
+                <% } %> (<%=home.rating%>)</p>
+                
+                
+            
+        </a>
+        </div>
+      </div>
+    
+</div>
+  <div class="booking-cards-container">
+          
+          <!-- for payment -->
+          <form action="/user/submit_booking/<%=home._id%>" method="post" style="border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin: 20px; padding: 20px; width: 100%;">
+          <h2 style="margin-bottom: 20px;">Home Booking</h2>
+          
+          <div style="margin-bottom: 15px;">
+            <label for="name" style="display: block; margin-bottom: 5px;">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required style="width: 96%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <label for="phone" style="display: block; margin-bottom: 5px;">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" pattern="[0-9]{10}" required style="width: 96%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <label for="checkin" style="display: block; margin-bottom: 5px;">Check-in Date</label>
+            <input type="date" id="checkin" name="checkin" required style="width: 96%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <label for="checkout" style="display: block; margin-bottom: 5px;">Check-out Date</label>
+            <input type="date" id="checkout" name="checkout" required style="width: 96%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+          </div>
+          <div style="margin-bottom: 15px;">
+            <h3 style="margin-bottom: 20px;">Total Amount: <%=home.price%> </h3>
+            <label for="payment" style="display: block; margin-bottom: 5px;">Payment Method</label>
+            <select id="payment" name="payment" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+              <option value="">Select Payment Method</option>
+              <option value="credit_card">Credit Card</option>
+              <option value="debit_card">Debit Card</option>
+              <option value="paypal">PayPal</option>
+              <option value="cash">Cash</option>
+            </select>
+          </div>
+          
+          <div style="text-align: center;">
+            <button type="submit" style="padding: 10px 20px; border: none; border-radius: 5px; background-color: #f50303; color: white; cursor: pointer;">Book Now</button>
+          </div>
+            </form>
+      
+  </div>
+    </div>
+</body>
+</html>

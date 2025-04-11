@@ -1,0 +1,94 @@
+<%-include('../partials/head')%>
+<style>
+    .cards-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+        padding: 20px;
+        width: 18%;
+        /* text-align: center; */
+    }
+    .card img {
+        border-radius: 10px;
+        max-width: 100%;
+        height: auto;
+    }
+    .card h3 {
+        margin: 10px 0;
+    }
+    .card p {
+        margin: 5px 0;
+    }
+    #favImg1{
+        width: 30px;
+        height: 30px;
+        filter:grayscale(10)
+    }
+    
+    #favImg2{
+        width: 30px;
+        height: 30px;
+    }
+    #favImg1:hover{
+        box-shadow: 0 4px 8px red;
+        filter:grayscale(0)
+    }
+    #favImg2:hover{
+        box-shadow: 0 4px 8px red;
+        filter:grayscale(10)
+    }
+    .reserve:hover{
+        box-shadow: 0 4px 8px green;
+    }
+</style>
+    <h1 style="text-align: center; color: blue;">
+        Welcome User!
+    </h1>
+    <h2 style="text-align: center; color: green;">
+        Here are the details of the home
+    </h2>
+            <div class="cards-container">
+                    <div class="card">
+                        <img src="<%= home.imageURL %>" alt="Home Image">
+                        <h3><%= home.name %></h3>
+                        <p><strong>Type:</strong> <%= home.type %></p>
+                        <p><strong>Price per night:</strong> ₹<%= home.price %></p>
+                        <p><strong>Location:</strong> <%= home.location %></p>
+                        <p><strong>Ratings:</strong> <% for(let i=1;i<=home.rating;i++){%>
+                            ⭐
+                            <% } %> (<%=home.rating%>)</p>
+                            <a href="/user/booking">
+                                <button class="reserve"  style="background-color:greenyellow; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer; font-size: 16px;">RESERVE</button>
+                            </a>
+                            
+                            <%if(opacity[home._id] ==10){%>
+
+                                <form action="/user/favourite_list" method="post" style="float: right;">
+                                    <input type="hidden" name="homeId" value="<%= home._id %>">
+                                    <button id="favBtn1" style="background: none; border: none; cursor: pointer; padding: 0;">
+                                        <img id="favImg1" src="/pngtree-red-3d-heart-emoji-realistic-shadow-png-image_4539964.png" alt="Favourite" >
+                                    </button>
+                                </form>
+                                <%}else{%>
+                                    <form action="/user/unfavourite/<%=home._id%>" method="post" style="float: right;">
+                                        <input type="hidden" name="homeId" value="<%= home._id %>">
+                                        <button id="favBtn2" style="background: none; border: none; cursor: pointer; padding: 0;filter:grayscale(0)">
+                                            <img id="favImg2" src="/pngtree-red-3d-heart-emoji-realistic-shadow-png-image_4539964.png" alt="Favourite" >
+                                        </button>
+                                    </form>
+                                <%}%>
+                    </div>
+            </div>
+                <a href="/">
+                    <button style="background-color:red; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer; font-size: 16px;color: blanchedalmond;">
+                        Go Back To Home
+                    </button>
+                </a>
+        </body>
+        </html>

@@ -1,0 +1,24 @@
+<%-include('../partials/head')%>
+<header>
+    <nav style="display: flex; justify-content: space-between; background-color: #f50303; padding: 1rem;">
+        <a href="/" id="user" style="color: white; text-decoration: none; padding: 0 1rem;">HOME</a>
+        <a href="/host/addHomes" id="host" style="color: white; text-decoration: none; padding: 0 1rem;background-color: rgba(0, 0, 139, 0.794);">ADD HOME</a>
+        <a href="/host/admin_HomeList" id="admin_HomeList" style="color: white; text-decoration: none; padding: 0 1rem;">ADMIN HOMELIST</a>
+
+    </nav>
+</header>
+<h1 style="color: blue; text-align: center;">
+    <%=editing ? "Edit":"Add"%> your home details here
+</h1>
+<form action="/host/<%= editing ?'edit_home' : 'addHomes'%>" method="post" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+    <input type="hidden" name="id" value="<%=editing ? home._id :'' %>" style="padding: 10px; width: 300px;">
+    <input type="text" name="name" value="<%=editing ? home.name :'' %>" placeholder="Enter your name" style="padding: 10px; width: 300px;">
+    <input type="text" name="type" value="<%=editing ? home.type :'' %>" placeholder="Enter your home type" style="padding: 10px; width: 300px;">
+    <input type="text" name="location" value="<%=editing ? home.location :'' %>" placeholder="Enter your location" style="padding: 10px; width: 300px;">
+    <input type="number" name="price" value="<%=editing ? home.price :'' %>" placeholder="Enter your price" style="padding: 10px; width: 300px;">
+    <input type="text" name="image" value="<%=editing ? home.imageURL :'' %>" placeholder="Enter your image url here" style="padding: 10px; width: 300px;">
+    <input type="text" name="rating" value="<%=editing ? home.rating :'' %>" placeholder="Enter your rating" style="padding: 10px; width: 300px;">
+    <button type="submit" style="padding: 10px 20px; background-color: blue; color: white; border: none; cursor: pointer;"><%=editing ? "Update Home":"Add Home" %></button>
+</form>
+</body>
+</html>

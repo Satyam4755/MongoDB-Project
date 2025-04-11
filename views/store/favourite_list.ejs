@@ -1,0 +1,96 @@
+<%-include('../partials/head')%>
+<style>
+    .cards-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+        /* padding: 20px; */
+        width: 18%;
+        /* text-align: center; */
+    }
+    .card:hover{
+        box-shadow: 0 4px 8px rgba(0, 0, 0,10);
+    }
+    .card img {
+        border-radius: 10px;
+        max-width: 100%;
+        height: auto;
+    }
+    .content{
+        margin: 10px;
+    }
+    .card h3 {
+        margin: 10px 0;
+    }
+    .card p {
+        margin: 5px 0;
+    }
+    #favImg{
+        width: 30px;
+        height: 30px;
+        filter:grayscale(0);
+    }
+    #favImg:hover{
+        box-shadow: 0 4px 8px red;
+        filter:grayscale(10)
+    }
+    .reserve:hover{
+        box-shadow: 0 4px 8px green;
+    }
+</style>
+
+<header>
+    <nav style="display: flex; justify-content: space-between; background-color: #f50303; padding: 1rem;">
+        <a href="/" id="user" style="color: white; text-decoration: none; padding: 0 1rem;">HOME</a>
+        <a href="/user" id="user" style="color: white; text-decoration: none; padding: 0 1rem;">USER</a>
+        <a href="/user/favourite_list" id="home-details" style="color: white; text-decoration: none; padding: 0 1rem; background-color: rgba(0, 0, 139, 0.794);">FAVOURITE-LIST</a>
+        <a href="/user/reserve" id="home-details" style="color: white; text-decoration: none; padding: 0 1rem;">RESERVE</a>
+    </nav>
+</header>
+    <h1>
+        Welcome User!
+    </h1>
+    <h2>
+        Here are the list your favourite homes with details
+    </h2>
+    
+
+    <div class="cards-container">
+        <% homes.forEach(home => { %>
+            <div class="card">
+                <a id="link" href="/user/home-list/<%=home._id %>" style="text-decoration: none; color: black;">
+                    <img src="<%= home.imageURL %>" alt="Home Image">
+                
+                <div class="content">
+                    <h3><%= home.name %></h3>
+                <p><strong>Type:</strong> <%= home.type %></p>
+                <p><strong>Price per night:</strong> ₹<%= home.price %></p>
+                <p><strong>Location:</strong> <%= home.location %></p>
+                <p><strong>Ratings:</strong> <% for(let i=1;i<=home.rating;i++){%>
+                    ⭐
+                    <% } %> (<%=home.rating%>)</p>
+                    <a href="/user/booking/<%=home._id%>">
+                        <button class="reserve" style="background-color:greenyellow; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer; font-size: 16px;">RESERVE</button>
+                    </a>
+                    
+                <form action="/user/unfavourite/<%=home._id%>" method="post" style="float: right;">
+                    <input type="hidden" name="id" value="<%=home._id%>">
+                    <button id="favBtn" style="background: none; border: none; cursor: pointer; padding: 0;" onclick=change()>
+                        <img id="favImg" src="/pngtree-red-3d-heart-emoji-realistic-shadow-png-image_4539964.png" alt="Favourite" >
+                    </button>
+                </form>
+            </a>
+                </div>
+            </div>
+        
+        <% }) %>
+    </div>
+</body>
+</html>

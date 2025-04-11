@@ -1,0 +1,69 @@
+<%-include('../partials/head')%>
+<style>
+    .cards-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+        padding: 20px;
+        width: 18%;
+        /* text-align: center; */
+    }
+    .card img {
+        border-radius: 10px;
+        max-width: 100%;
+        height: auto;
+    }
+    .card h3 {
+        margin: 10px 0;
+    }
+    .card p {
+        margin: 5px 0;
+    }
+    button:hover{
+        box-shadow: 0 4px 8px rgba(222, 8, 8, 0.1);
+    }
+</style>
+
+<header>
+    <nav style="display: flex; justify-content: space-between; background-color: #f50303; padding: 1rem;">
+        <a href="/" id="user" style="color: white; text-decoration: none; padding: 0 1rem;">HOME</a>
+        <a href="/user" id="user" style="color: white; text-decoration: none; padding: 0 1rem;">USER</a>
+        <a href="/user/favourite_list" id="home-details" style="color: white; text-decoration: none; padding: 0 1rem;">FAVOURITE-LIST</a>
+        <a href="/user/reserve" id="home-details" style="color: white; text-decoration: none; padding: 0 1rem; background-color: rgba(0, 0, 139, 0.794);">RESERVE</a>
+    </nav>
+</header>
+    <h1>
+        Welcome User!
+    </h1>
+    <h2>
+        Here are the list homes you reserved:
+    </h2>
+    
+
+    <div class="cards-container">
+        <% homes.forEach(home => { %>
+            <div class="card">
+                <img src="<%= home.imageURL %>" alt="Home Image">
+                <h3><%= home.name %></h3>
+                <p><strong>Type:</strong> <%= home.type %></p>
+                <p><strong>Price per night:</strong> ₹<%= home.price %></p>
+                <p><strong>Location:</strong> <%= home.location %></p>
+                <p><strong>Ratings:</strong> <% for(let i=1;i<=home.rating;i++){%>
+                    ⭐
+                    <% } %> (<%=home.rating%>)</p>
+                    <h3 style="position: absolute; color: green; font-weight: bold;width: fit-content;">RESERVED</h3>
+
+                <form id="Cancel" action="/user/reserve/<%=home._id%>" method="post" style="margin-top: 10px;">
+                    <button style="float: right; background-color: red; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Cancel</button>
+                </form>
+            </div>
+        <% }) %>
+    </div>
+</body>
+</html>

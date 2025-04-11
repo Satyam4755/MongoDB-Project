@@ -1,0 +1,67 @@
+<%-include('../partials/head')%>
+<style>
+    .cards-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+        padding: 20px;
+        width: 18%;
+        text-align: center;
+    }
+    .card img {
+        border-radius: 10px;
+        max-width: 100%;
+        height: auto;
+    }
+    .card h3 {
+        margin: 10px 0;
+    }
+    .card p {
+        margin: 5px 0;
+    }
+</style>
+<header>
+    <nav style="display: flex; justify-content: space-between; background-color: #f50303; padding: 1rem;">
+        <a href="/" id="user" style="color: white; text-decoration: none; padding: 0 1rem;">HOME</a>
+        <a href="/host/addHomes" id="host" style="color: white; text-decoration: none; padding: 0 1rem;">ADD HOME</a>
+        <a href="/host/admin_HomeList" id="admin_HomeList" style="color: white; text-decoration: none; padding: 0 1rem; background-color: rgba(0, 0, 139, 0.794);">ADMIN HOMELIST</a>
+     </nav>
+</header>
+    <h1>
+        Welcome Admin!
+    </h1>
+    <h2>
+        Here are the list of homes you have submitted:
+    </h2>
+    
+
+    <div class="cards-container">
+        <% homes.forEach(home => { %>
+            <div class="card">
+                <a href="/host/edit_home/<%=home._id%>?editing=true">
+                    <button type="submit" style="margin-bottom :2%; margin-top:0;float: right;">✍️</button>
+                </a>
+                
+                <form action="/host/delete_home/<%=home._id%>" method="post">
+                    <input type="hidden" name="id" value="<%=home._id%>">
+                    <button type="submit" style="margin-bottom:2%; margin-top:0;float:right;">🗑️</button>
+                </form>
+                <img src="<%= home.imageURL %>" alt="Home Image">
+                <h3><%= home.name %></h3>
+                <p><strong>Type:</strong> <%= home.type %></p>
+                <p><strong>Price per night:</strong> ₹<%= home.price %></p>
+                <p><strong>Location:</strong> <%= home.location %></p>
+                <p><strong>Ratings:</strong> <% for(let i=1;i<=home.rating;i++){%>
+                    ⭐
+                <% } %></p>
+            </div>
+        <% }) %>
+    </div>
+</body>
+</html>
